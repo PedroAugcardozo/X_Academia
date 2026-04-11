@@ -1,5 +1,8 @@
 package com.academia.projetoacademia.Model;
 
+import java.sql.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,4 +13,31 @@ public class usuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
+    private String nome;
+
+    @Column
+    private String email;
+    
+    @Column
+    private String cpf;
+
+    @Column
+    private String sexo;
+
+    @Column
+    private Date data_nasc;
+
+    @Column
+    private String nivel_acesso;
+
+    @Column
+    private long id_plano;
+
+    @Column
+    private Date plano_expira_em;
+
+    
+
 }

@@ -13,5 +13,4 @@ public class ProjetoacademiaApplication {
 }
 /*
 URL base da API: http://localhost:8080
-URL do H2: http://localhost:8080/h2-console
 */

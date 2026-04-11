@@ -73,7 +73,13 @@
     		<artifactId>h2</artifactId>
     		<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+	
+		<dependency>
+			<groupId>io.cronapp</groupId>
+			<artifactId>cronapp-acesso-cliente</artifactId>
+			<version>3.2.1-SP.7</version>
+		</dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
