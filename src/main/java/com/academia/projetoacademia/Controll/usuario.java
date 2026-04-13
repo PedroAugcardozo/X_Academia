@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academia.projetoacademia.Model.usuarioModel;
 import com.academia.projetoacademia.repositorys.usuarioRepository;
 
+import jakarta.validation.Valid;
+import lombok.Getter;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -21,19 +26,13 @@ public class usuario {
 
     private final usuarioRepository repository;
 
-    private usuarioModel usuarioAux;
-
     public usuario(usuarioRepository repository) {
         this.repository = repository;
     }
 
     @PostMapping("/criar")
     public ResponseEntity CriarUsuario(@RequestBody usuarioModel usuario){
-        usuarioAux = repository.save(usuario);
-        if(usuarioAux != null){
-            return ResponseEntity.ok("usuario criado com sucesso");
-        }
-        return ResponseEntity.badRequest().body("erro ao criar usuario");
+        return ResponseEntity.status(201).body(repository.save(usuario));
     }
 
     @GetMapping("/buscartodos")
@@ -45,4 +44,5 @@ public class usuario {
     public ResponseEntity BuscarUm(@RequestParam Long id){
         return ResponseEntity.ok("Usuario: " + repository.findById(id));
     }
+
 }
