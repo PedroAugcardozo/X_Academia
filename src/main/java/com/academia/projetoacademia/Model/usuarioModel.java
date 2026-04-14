@@ -1,6 +1,7 @@
 package com.academia.projetoacademia.Model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,13 +42,10 @@ public class usuarioModel {
     private String sexo;
 
     @Column
-    private Date data_nasc;
+    private LocalDate data_nasc;
 
     @Column
     private String nivel_acesso;
-
-    @Column
-    private long id_plano;
 
     @Column
     private Date plano_expira_em;

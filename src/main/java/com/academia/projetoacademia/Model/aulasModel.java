@@ -2,6 +2,7 @@ package com.academia.projetoacademia.Model;
 
 import java.sql.Date;
 import java.time.LocalTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -39,4 +42,16 @@ public class aulasModel {
     @ManyToOne
     @JoinColumn(name = "id_instrutor")
     private instrutorModel instrutorModel;
+
+    @ManyToMany
+    @JoinTable(
+        name = "aula_equipamentos",
+        joinColumns = @JoinColumn(name = "id_aula"),
+        inverseJoinColumns = @JoinColumn(name = "id_equipamentos")
+    )
+    private List<equipamentosModel> equipamentosModels;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private categoriasModel categoriasModel;
 }
