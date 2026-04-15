@@ -17,7 +17,6 @@ import lombok.Data;
 @Data
 @Table(name = "endereco")
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "id_usuario")
 public class enderecoModel {
     @Id
     @Column

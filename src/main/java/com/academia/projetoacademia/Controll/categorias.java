@@ -12,7 +12,7 @@ import com.academia.projetoacademia.Model.categoriasModel;
 import com.academia.projetoacademia.repositorys.categoraiasRepositorys;
 
 @RestController
-@RequestMapping(name = "/categorias")
+@RequestMapping("/categorias")
 public class categorias {
 
     private categoraiasRepositorys repositorys;

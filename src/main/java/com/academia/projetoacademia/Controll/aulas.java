@@ -12,7 +12,7 @@ import com.academia.projetoacademia.Model.aulasModel;
 import com.academia.projetoacademia.repositorys.aulasRepository;
 
 @RestController
-@RequestMapping(name = "/aulas")
+@RequestMapping("/aulas")
 public class aulas {
     
     private aulasRepository repository;
