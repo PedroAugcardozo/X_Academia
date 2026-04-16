@@ -12,7 +12,6 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +27,9 @@ public class usuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
+    private String senha;
 
     @Column
     private String nome;
@@ -53,4 +55,24 @@ public class usuarioModel {
     @ManyToOne
     @JoinColumn(name = "id_plano")
     private plano plano;
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public String getNome(){
+        return this.nome;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getNivelAcesso(){
+        return this.nivel_acesso;
+    }
+
+    public String getSenha(){
+        return this.senha;
+    }
 }

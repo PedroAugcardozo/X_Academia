@@ -37,7 +37,7 @@ public class aulasModel {
     private LocalTime Horario;
 
     @Column
-    private LocalTime duracao;
+    private Long duracao;
 
     @ManyToOne
     @JoinColumn(name = "id_instrutor")
