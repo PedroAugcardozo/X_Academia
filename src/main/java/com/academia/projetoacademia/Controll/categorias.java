@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.Model.categoriasModel;
-import com.academia.projetoacademia.repositorys.categoraiasRepositorys;
+import com.academia.projetoacademia.repositorys.categoriasRepositorys;
 
 @RestController
 @RequestMapping("/categorias")
 public class categorias {
 
-    private categoraiasRepositorys repositorys;
+    private categoriasRepositorys repositorys;
     
     @PostMapping("/criar")
     public ResponseEntity criarCategoria(@RequestBody categoriasModel categoriasModel){

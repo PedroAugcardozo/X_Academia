@@ -11,50 +11,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.DTO.AulasDTO;
+import com.academia.projetoacademia.DTO.responseDTO;
 import com.academia.projetoacademia.Model.aulasModel;
+import com.academia.projetoacademia.Model.categoriasModel;
 import com.academia.projetoacademia.Model.equipamentosModel;
 import com.academia.projetoacademia.Model.instrutorModel;
 import com.academia.projetoacademia.repositorys.aulasRepository;
 import com.academia.projetoacademia.repositorys.equipamentosRepositorys;
 import com.academia.projetoacademia.repositorys.instrutorRepository;
+import com.academia.projetoacademia.services.aulasServices;
+import com.academia.projetoacademia.repositorys.categoriasRepositorys;
+
 
 @RestController
 @RequestMapping("/aulas")
 public class aulas {
+    private final aulasServices aulasServices;
+
     private final instrutor instrutor;
 
     private final equipamentos equipamentos;
 
     private aulasRepository repository;
 
-    private aulasModel aulasModel;
+    private responseDTO response;
 
-    private equipamentosRepositorys equip;
-
-    private instrutorRepository instrutorRepository;
-
-    aulas(equipamentos equipamentos, instrutor instrutor) {
+    aulas(equipamentos equipamentos, instrutor instrutor, aulasServices aulasServices) {
         this.equipamentos = equipamentos;
         this.instrutor = instrutor;
+        this.aulasServices = aulasServices;
     }
-
     @PostMapping("/criar")
     public ResponseEntity criarAulas(@RequestBody AulasDTO aulasDTO){
-        equipamentosModel dadosEquipamento = equip.findByNome(aulasDTO.getEquipamento()).orElse(null);
-        if (dadosEquipamento == null) {
-            return ResponseEntity.badRequest().body("Equipamento não encontrado");
+        response = aulasServices.criarAula(aulasDTO);
+        if(response.getSucesso()){
+            return ResponseEntity.ok(response.getMensagem());
         }
-        if ("manutencao".equalsIgnoreCase(dadosEquipamento.getStatus()) || "descartado".equalsIgnoreCase(dadosEquipamento.getStatus())) {
-            return ResponseEntity.badRequest().body("Não é possível cadastrar aula com equipamento em manutenção");
-        }
-
-        instrutorModel instrutorAula = instrutorRepository.findByName(aulasDTO.getInstrutor()).orElse(null);
-        if(instrutorAula == null){
-            return ResponseEntity.badRequest().body("Instrutor nao encontrado");
-        }
-        
-
-        return ResponseEntity.ok("Aula criada com sucesso");
+        return ResponseEntity.badRequest().body(response.getMensagem());
     }
 
     @GetMapping("/buscarTodas")
