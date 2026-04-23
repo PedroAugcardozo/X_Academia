@@ -8,4 +8,5 @@ import com.academia.projetoacademia.Model.usuarioModel;
 
 public interface usuarioRepository extends JpaRepository<usuarioModel, Long>{
     Optional<usuarioModel> findByEmail(String email);
+    Optional<usuarioModel> findByNome(String nome);
 }

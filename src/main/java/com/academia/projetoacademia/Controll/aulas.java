@@ -12,15 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.responseDTO;
-import com.academia.projetoacademia.Model.aulasModel;
-import com.academia.projetoacademia.Model.categoriasModel;
-import com.academia.projetoacademia.Model.equipamentosModel;
-import com.academia.projetoacademia.Model.instrutorModel;
+
 import com.academia.projetoacademia.repositorys.aulasRepository;
-import com.academia.projetoacademia.repositorys.equipamentosRepositorys;
-import com.academia.projetoacademia.repositorys.instrutorRepository;
 import com.academia.projetoacademia.services.aulasServices;
-import com.academia.projetoacademia.repositorys.categoriasRepositorys;
+
 
 
 @RestController

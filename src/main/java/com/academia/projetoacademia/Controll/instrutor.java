@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academia.projetoacademia.Model.instrutorModel;
 import com.academia.projetoacademia.repositorys.instrutorRepository;
 
-@RequestMapping
+@RequestMapping("/instrutor")
 @RestController
 public class instrutor {
 
     private instrutorRepository repository;
     
-    @PostMapping
+    @PostMapping("/criar")
     public ResponseEntity criarInstrutor(@RequestBody instrutorModel instrutor){
         return ResponseEntity.status(201).body(repository.save(instrutor));
     }

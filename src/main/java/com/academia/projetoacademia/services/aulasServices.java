@@ -1,17 +1,12 @@
 package com.academia.projetoacademia.services;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.academia.projetoacademia.Controll.equipamentos;
-import com.academia.projetoacademia.Controll.instrutor;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.responseDTO;
-import com.academia.projetoacademia.Model.aulasModel;
 import com.academia.projetoacademia.Model.categoriasModel;
 import com.academia.projetoacademia.Model.equipamentosModel;
 import com.academia.projetoacademia.Model.instrutorModel;
-import com.academia.projetoacademia.repositorys.aulasRepository;
 import com.academia.projetoacademia.repositorys.categoriasRepositorys;
 import com.academia.projetoacademia.repositorys.equipamentosRepositorys;
 import com.academia.projetoacademia.repositorys.instrutorRepository;
@@ -23,6 +18,7 @@ public class aulasServices {
     private instrutorRepository instrutorRepository;
 
     private categoriasRepositorys categoriasRepository;
+
 
     public responseDTO criarAula(AulasDTO aulasDTO){
         responseDTO resposta = new responseDTO();
@@ -51,6 +47,7 @@ public class aulasServices {
             resposta.setMensagem("categoria nao encontrada");
             return resposta;
         }
+
         resposta.setMensagem("aula criada com sucesso");
         resposta.setSucesso(true);
         return resposta;
