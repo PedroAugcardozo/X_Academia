@@ -1,6 +1,8 @@
 package com.academia.projetoacademia.DTO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 public class AulasDTO {
     private String nome;
@@ -8,7 +10,8 @@ public class AulasDTO {
     private Long duracao;
     private String nomeinstrutor;
     private String nomeCategoria;
-    private String nomeEquipamentos;
+    private List<String> nomeEquipamentos;
+    private LocalTime horario;
 
     public String getNome(){return nome;}
 
@@ -20,7 +23,9 @@ public class AulasDTO {
 
     public String getCategoria(){return nomeCategoria;}
 
-    public String getEquipamento(){return nomeEquipamentos;}
+    public List<String> getEquipamento(){return nomeEquipamentos;}
+
+    public LocalTime getHorario(){return horario;}
 
     public void setNome(String nome){this.nome = nome;}
 
@@ -32,5 +37,7 @@ public class AulasDTO {
 
     public void setCategoria(String nomeCategoria){this.nomeCategoria = nomeCategoria;}
 
-    public void setEquiamentos(String nomeEquipamentos){this.nomeEquipamentos = nomeEquipamentos;}
+    public void setEquiamentos(List<String> nomeEquipamentos){this.nomeEquipamentos = nomeEquipamentos;}
+
+    public void setHorario(LocalTime horario){this.horario = horario;}
 }

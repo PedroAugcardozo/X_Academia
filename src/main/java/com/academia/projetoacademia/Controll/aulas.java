@@ -38,7 +38,7 @@ public class aulas {
     }
     @PostMapping("/criar")
     public ResponseEntity criarAulas(@RequestBody AulasDTO aulasDTO){
-        response = aulasServices.criarAula(aulasDTO);
+        response = aulasServices.criarAula(aulasDTO, repository);
         if(response.getSucesso()){
             return ResponseEntity.ok(response.getMensagem());
         }

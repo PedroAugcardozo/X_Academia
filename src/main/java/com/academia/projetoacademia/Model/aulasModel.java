@@ -1,6 +1,7 @@
 package com.academia.projetoacademia.Model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class aulasModel {
     private String nome;
 
     @Column(name = "data_aula")
-    private Date DataAula;
+    private LocalDate DataAula;
 
     @Column(name = "horario_inicio")
     private LocalTime Horario;
@@ -54,4 +55,6 @@ public class aulasModel {
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private categoriasModel categoriasModel;
+
+    public LocalTime getHorario(){return Horario;}
 }
