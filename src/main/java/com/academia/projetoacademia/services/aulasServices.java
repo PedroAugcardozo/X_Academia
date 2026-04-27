@@ -51,7 +51,7 @@ public class aulasServices {
                 equipamentosDaAula.add(dadosEquipamento);
             }
 
-            instrutorModel instrutorAula = instrutorRepository.findByName(aulasDTO.getInstrutor()).orElse(null);
+            instrutorModel instrutorAula = instrutorRepository.findByNome(aulasDTO.getInstrutor()).orElse(null);
             if(instrutorAula == null){
                 resposta.setMensagem("instrutor nao encontrado");
                 resposta.setSucesso(false);
