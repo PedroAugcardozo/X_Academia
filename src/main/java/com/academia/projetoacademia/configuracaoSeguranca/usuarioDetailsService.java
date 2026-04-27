@@ -9,16 +9,18 @@ import com.academia.projetoacademia.Model.usuarioModel;
 import com.academia.projetoacademia.repositorys.usuarioRepository;
 
 @Service
-public class usuarioDetailsService implements UserDetailsService{
-    private usuarioRepository repository;
+public class usuarioDetailsService implements UserDetailsService {
 
-    public void usuarioDetailsService(usuarioRepository repository) {
+    private final usuarioRepository repository;
+
+    public usuarioDetailsService(usuarioRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         usuarioModel usuario = repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         return new usuarioAutenticado(usuario);
     }

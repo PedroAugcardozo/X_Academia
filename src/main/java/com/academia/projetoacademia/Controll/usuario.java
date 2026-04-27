@@ -83,3 +83,9 @@ public class usuario {
         }
     }
 }
+/*
+{
+  "email": "admin@academia.com",
+  "senha": "admin123"
+}
+*/

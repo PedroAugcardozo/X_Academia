@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.academia.projetoacademia.DTO.LoginDto;
 import com.academia.projetoacademia.DTO.RespostaDto;
+import com.academia.projetoacademia.DTO.responseDTO;
 import com.academia.projetoacademia.configuracaoSeguranca.TokenService;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 
@@ -27,24 +28,27 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<RespostaDto> login(@RequestBody @Valid LoginDto request) {
-        Authentication authentication = authenticationManager.authenticate(
+        try{
+            Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getSenha()
                 )
-        );
-
-        usuarioAutenticado usuario = (usuarioAutenticado) authentication.getPrincipal();
-        String token = tokenService.gerarToken(usuario);
-
-        RespostaDto response = new RespostaDto(
-                token,
-                "Bearer",
-                usuario.getId(),
-                usuario.getNome(),
-                usuario.getNivelAcesso()
-        );
-
-        return ResponseEntity.ok(response);
+            );
+            usuarioAutenticado usuario = (usuarioAutenticado) authentication.getPrincipal();
+            String token = tokenService.gerarToken(usuario);
+            RespostaDto response = new RespostaDto(
+                    token,
+                    "Bearer",
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getNivelAcesso()
+            );
+            return ResponseEntity.ok(response);        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        RespostaDto respostaDto = new RespostaDto(null, null, null, null, null);
+        return ResponseEntity.status(500).body(respostaDto); 
     }
 }
