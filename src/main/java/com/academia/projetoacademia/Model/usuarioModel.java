@@ -1,7 +1,9 @@
 package com.academia.projetoacademia.Model;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,11 +52,11 @@ public class usuarioModel {
     private String nivel_acesso;
 
     @Column
-    private Date plano_expira_em;
+    private LocalDateTime plano_expira_em;
 
     @ManyToOne
     @JoinColumn(name = "id_plano")
-    private plano plano;
+    private planoModel plano;
 
     public Long getId(){
         return this.id;

@@ -18,14 +18,16 @@ public class plano {
     private planosRepository repository;
     
     @PostMapping("/criar")
-    public ResponseEntity CriarPlano(@RequestBody com.academia.projetoacademia.Model.plano plano){
-        return ResponseEntity.status(201).body(repository.save(plano));
+    public ResponseEntity CriarPlano(@RequestBody com.academia.projetoacademia.Model.planoModel plano){
+        try{
+            return ResponseEntity.status(201).body(repository.save(plano));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
     @GetMapping("/buscarTodos")
     public ResponseEntity buscarTodos(){
         return ResponseEntity.status(201).body(repository.findAll());
     }
-
-    
 }
