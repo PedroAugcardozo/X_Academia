@@ -87,5 +87,11 @@ public class usuario {
 {
   "email": "admin@academia.com",
   "senha": "admin123"
+
+  "email": "aluno1@academia.com",
+  "senha": "aluno123"
+
+  "email": "instrutor1@academia.com",
+  "senha": "instrutor123"
 }
 */
