@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 @Table(name = "endereco")
 @AllArgsConstructor
-public class enderecoModel {
+public class EnderecoModel {
     @Id
     @Column
     private Long id;
@@ -33,7 +33,7 @@ public class enderecoModel {
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
-    private usuarioModel usuarioModel;
+    private UsuarioModel usuarioModel;
 
-    enderecoModel(){}
+    EnderecoModel(){}
 }

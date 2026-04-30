@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "planos")
-public class planoModel {
+public class PlanoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

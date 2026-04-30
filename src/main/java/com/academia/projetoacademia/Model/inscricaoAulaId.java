@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class inscricaoAulaId implements Serializable{
+public class InscricaoAulaId implements Serializable{
     private Long idUsuario;
     private Long idAula;
 }

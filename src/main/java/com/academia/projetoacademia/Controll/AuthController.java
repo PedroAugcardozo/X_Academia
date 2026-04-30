@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.academia.projetoacademia.DTO.LoginDto;
 import com.academia.projetoacademia.DTO.RespostaDto;
-import com.academia.projetoacademia.DTO.responseDTO;
+import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.configuracaoSeguranca.TokenService;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 

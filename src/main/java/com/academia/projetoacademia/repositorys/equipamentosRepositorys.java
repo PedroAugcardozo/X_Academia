@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.equipamentosModel;
+import com.academia.projetoacademia.Model.EquipamentosModel;
 
-public interface equipamentosRepositorys extends JpaRepository<equipamentosModel, Long>{
-    Optional<equipamentosModel> findByNome(String nome);
+public interface EquipamentosRepositorys extends JpaRepository<EquipamentosModel, Long>{
+    Optional<EquipamentosModel> findByNome(String nome);
 }

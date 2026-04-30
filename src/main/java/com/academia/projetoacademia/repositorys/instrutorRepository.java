@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.instrutorModel;
+import com.academia.projetoacademia.Model.InstrutorModel;
 
-public interface instrutorRepository extends JpaRepository<instrutorModel, Long>{
-    Optional<instrutorModel> findByNome(String nome);
+public interface InstrutorRepository extends JpaRepository<InstrutorModel, Long>{
+    Optional<InstrutorModel> findByNome(String nome);
 }

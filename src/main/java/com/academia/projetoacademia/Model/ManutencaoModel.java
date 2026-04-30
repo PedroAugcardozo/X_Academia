@@ -13,7 +13,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "historico_manutencao")
-public class manutencaoMode {
+public class ManutencaoModel {
     @Id
     private Long id;
 
@@ -28,9 +28,9 @@ public class manutencaoMode {
 
     @ManyToOne
     @JoinColumn(name = "id_equipamento")
-    private equipamentosModel equipamentos;
+    private EquipamentosModel equipamentos;
 
     @ManyToOne
     @JoinColumn(name = "id_admin_responsavel")
-    private usuarioModel adminResponsavel;
+    private UsuarioModel adminResponsavel;
 }

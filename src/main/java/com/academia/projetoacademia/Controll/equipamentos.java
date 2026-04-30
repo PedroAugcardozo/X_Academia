@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.equipamentosModel;
-import com.academia.projetoacademia.repositorys.equipamentosRepositorys;
+import com.academia.projetoacademia.Model.EquipamentosModel;
+import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
 
 @RestController
 @RequestMapping("/equipamentos")
-public class equipamentos {
+public class Equipamentos {
     
-    private equipamentosRepositorys repositorys;
+    private EquipamentosRepositorys repositorys;
 
     @PostMapping("/criar")
-    public ResponseEntity criarEquipamento(@RequestBody equipamentosModel equipamento){
+    public ResponseEntity criarEquipamento(@RequestBody EquipamentosModel equipamento){
         return ResponseEntity.status(201).body(repositorys.save(equipamento));
     }
 

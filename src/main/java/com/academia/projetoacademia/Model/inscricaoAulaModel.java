@@ -14,19 +14,19 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios_aulas")
 @Data
 @NoArgsConstructor
-public class inscricaoAulaModel {
+public class InscricaoAulaModel {
     @EmbeddedId
-    private inscricaoAulaId id = new inscricaoAulaId();
+    private InscricaoAulaId id = new InscricaoAulaId();
 
     @ManyToOne
     @MapsId("idUsuario") // Nome do campo dentro da classe InscricaoAulaId
     @JoinColumn(name = "id_usuario")
-    private usuarioModel usuario;
+    private UsuarioModel usuario;
 
     @ManyToOne
     @MapsId("idAula") // Nome do campo dentro da classe InscricaoAulaId
     @JoinColumn(name = "id_aula")
-    private aulasModel aula;
+    private AulasModel aula;
 
     @Column(nullable = false)
     private boolean presenca = false;

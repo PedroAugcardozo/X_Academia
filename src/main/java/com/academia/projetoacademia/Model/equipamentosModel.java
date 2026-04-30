@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "equipamentos")
 @NoArgsConstructor
-public class equipamentosModel {
+public class EquipamentosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -8,13 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.academia.projetoacademia.Model.usuarioModel;
+import com.academia.projetoacademia.Model.UsuarioModel;
 
 public class usuarioAutenticado implements UserDetails{
 
-    private final usuarioModel usuario;
+    private final UsuarioModel usuario;
 
-    public usuarioAutenticado(usuarioModel usuario) {
+    public usuarioAutenticado(UsuarioModel usuario) {
         this.usuario = usuario;
     }
 

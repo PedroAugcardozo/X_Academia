@@ -8,12 +8,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.Model.instrutorModel;
-import com.academia.projetoacademia.Model.planoModel;
-import com.academia.projetoacademia.Model.usuarioModel;
+import com.academia.projetoacademia.Model.PlanoModel;
+import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
-import com.academia.projetoacademia.repositorys.instrutorRepository;
-import com.academia.projetoacademia.repositorys.planosRepository;
-import com.academia.projetoacademia.repositorys.usuarioRepository;
+import com.academia.projetoacademia.repositorys.InstrutorRepository;
+import com.academia.projetoacademia.repositorys.PlanosRepository;
+import com.academia.projetoacademia.repositorys.UsuarioRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController 
 @RequestMapping("/usuarios")
-public class usuario {
+public class Usuario {
 
-    private final usuarioRepository repository;
+    private final UsuarioRepository repository;
 
-    private final instrutorRepository instRepository;
+    private final InstrutorRepository instRepository;
 
-    private final planosRepository planosRepository;
+    private final PlanosRepository planosRepository;
 
-    public usuario(usuarioRepository repository, instrutorRepository instrutorRepository, planosRepository planosRepository) {
+    public Usuario(UsuarioRepository repository, InstrutorRepository instrutorRepository, PlanosRepository planosRepository) {
         this.repository = repository;
         this.instRepository = instrutorRepository;
         this.planosRepository = planosRepository;
@@ -42,7 +42,7 @@ public class usuario {
     
 
     @PostMapping("/criar")
-    public ResponseEntity CriarUsuario(@RequestBody usuarioModel usuario){
+    public ResponseEntity CriarUsuario(@RequestBody UsuarioModel usuario){
         return ResponseEntity.status(201).body(repository.save(usuario));
     }
 
@@ -59,7 +59,7 @@ public class usuario {
     @PostMapping("/atualizar-plano")
     public ResponseEntity atualizarPlano(@AuthenticationPrincipal usuarioAutenticado usuarioLogado,@RequestParam Long idPlano) {
         try {
-            Optional<usuarioModel> usuarioOpt = repository.findById(usuarioLogado.getId());
+            Optional<UsuarioModel> usuarioOpt = repository.findById(usuarioLogado.getId());
             if (usuarioOpt.isEmpty()) {
                 return ResponseEntity.badRequest().body("usuario nao encontrado");
             }
@@ -68,12 +68,12 @@ public class usuario {
             if (instrutorOpt.isPresent()) {
                 return ResponseEntity.badRequest().body("instrutor nao pode atualizar o proprio plano");
             }
-            Optional<planoModel> planoOpt = planosRepository.findById(idPlano);
+            Optional<PlanoModel> planoOpt = planosRepository.findById(idPlano);
             if (planoOpt.isEmpty()) {
                 return ResponseEntity.badRequest().body("plano nao encontrado");
             }
-            usuarioModel usuario = usuarioOpt.get();
-            planoModel plano = planoOpt.get();
+            UsuarioModel usuario = usuarioOpt.get();
+            PlanoModel plano = planoOpt.get();
             usuario.setPlano(plano);
             usuario.setPlano_expira_em(LocalDateTime.now().plusDays(30));
             repository.save(usuario);

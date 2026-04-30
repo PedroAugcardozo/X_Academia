@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public class usuarioModel {
+public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -56,7 +56,7 @@ public class usuarioModel {
 
     @ManyToOne
     @JoinColumn(name = "id_plano")
-    private planoModel plano;
+    private PlanoModel plano;
 
     public Long getId(){
         return this.id;

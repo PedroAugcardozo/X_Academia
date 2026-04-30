@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.planoModel;
+import com.academia.projetoacademia.Model.PlanoModel;
 
-public interface planosRepository extends JpaRepository<planoModel, Long>{
-    Optional<planoModel> findByNome(String nome);
+public interface PlanosRepository extends JpaRepository<PlanoModel, Long>{
+    Optional<PlanoModel> findByNome(String nome);
 }

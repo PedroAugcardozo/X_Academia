@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.repositorys.planosRepository;
+import com.academia.projetoacademia.repositorys.PlanosRepository;
 
 @RestController
-@RequestMapping(name = "/planos")
-public class plano {
+@RequestMapping("/planos")
+public class Plano {
 
-    private planosRepository repository;
+    private PlanosRepository repository;
     
     @PostMapping("/criar")
-    public ResponseEntity CriarPlano(@RequestBody com.academia.projetoacademia.Model.planoModel plano){
+    public ResponseEntity CriarPlano(@RequestBody com.academia.projetoacademia.Model.PlanoModel plano){
         try{
             return ResponseEntity.status(201).body(repository.save(plano));
         }catch(Exception e){

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.aulasModel;
+import com.academia.projetoacademia.Model.AulasModel;
 
-public interface aulasRepository extends JpaRepository<aulasModel, Long>{
-    List<aulasModel> findByInstrutorModelId(Long id);
+public interface AulasRepository extends JpaRepository<AulasModel, Long>{
+    List<AulasModel> findByInstrutorModelId(Long id);
 }

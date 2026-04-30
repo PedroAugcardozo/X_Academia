@@ -2,6 +2,6 @@ package com.academia.projetoacademia.repositorys;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.enderecoModel;
+import com.academia.projetoacademia.Model.EnderecoModel;
 
-public interface enderecoRepository extends JpaRepository<enderecoModel, Long>{}
+public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long>{}

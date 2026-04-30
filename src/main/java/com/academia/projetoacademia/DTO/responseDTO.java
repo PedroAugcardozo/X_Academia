@@ -1,6 +1,6 @@
 package com.academia.projetoacademia.DTO;
 
-public class responseDTO {
+public class ResponseDTO {
     private Boolean sucesso;
     private String mensagem;
 

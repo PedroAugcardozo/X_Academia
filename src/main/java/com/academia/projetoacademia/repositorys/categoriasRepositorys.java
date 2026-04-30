@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.categoriasModel;
+import com.academia.projetoacademia.Model.CategoriasModel;
 
-public interface categoriasRepositorys extends JpaRepository<categoriasModel, Long>{
-    Optional<categoriasModel> findByNome(String name);
+public interface CategoriasRepositorys extends JpaRepository<CategoriasModel, Long>{
+    Optional<CategoriasModel> findByNome(String name);
 }

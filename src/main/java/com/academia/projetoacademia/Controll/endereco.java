@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.enderecoModel;
+import com.academia.projetoacademia.Model.EnderecoModel;
 import com.academia.projetoacademia.repositorys.enderecoRepository;
 
 @RestController
 @RequestMapping("/endereco")
-public class endereco {
+public class Endereco {
     
     private enderecoRepository repository;
 
     @PostMapping("/criar")
-    public ResponseEntity criarEndereco(@RequestBody enderecoModel enderecoModel){
+    public ResponseEntity criarEndereco(@RequestBody EnderecoModel enderecoModel){
         return ResponseEntity.status(201).body(repository.save(enderecoModel));
     }
 

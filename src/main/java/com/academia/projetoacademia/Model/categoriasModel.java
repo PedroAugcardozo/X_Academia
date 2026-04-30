@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "categorias")
 @NoArgsConstructor
-public class categoriasModel {
+public class CategoriasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

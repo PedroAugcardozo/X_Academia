@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "aulas")
 @NoArgsConstructor
-public class aulasModel {
+public class AulasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,7 +50,7 @@ public class aulasModel {
         joinColumns = @JoinColumn(name = "id_aula"),
         inverseJoinColumns = @JoinColumn(name = "id_equipamentos")
     )
-    private List<equipamentosModel> equipamentosModels;
+    private List<EquipamentosModel> equipamentosModels;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")

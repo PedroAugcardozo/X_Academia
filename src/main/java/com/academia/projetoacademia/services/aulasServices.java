@@ -7,33 +7,33 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.academia.projetoacademia.DTO.AulasDTO;
-import com.academia.projetoacademia.DTO.responseDTO;
-import com.academia.projetoacademia.Model.aulasModel;
+import com.academia.projetoacademia.DTO.ResponseDTO;
+import com.academia.projetoacademia.Model.AulasModel;
 import com.academia.projetoacademia.Model.categoriasModel;
-import com.academia.projetoacademia.Model.equipamentosModel;
+import com.academia.projetoacademia.Model.EquipamentosModel;
 import com.academia.projetoacademia.Model.instrutorModel;
-import com.academia.projetoacademia.repositorys.aulasRepository;
-import com.academia.projetoacademia.repositorys.categoriasRepositorys;
-import com.academia.projetoacademia.repositorys.equipamentosRepositorys;
-import com.academia.projetoacademia.repositorys.instrutorRepository;
+import com.academia.projetoacademia.repositorys.AulasRepository;
+import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
+import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
+import com.academia.projetoacademia.repositorys.InstrutorRepository;
 
 @Service
-public class aulasServices {
-    private equipamentosRepositorys equip;
+public class AulasServices {
+    private EquipamentosRepositorys equip;
 
-    private instrutorRepository instrutorRepository;
+    private InstrutorRepository instrutorRepository;
 
-    private categoriasRepositorys categoriasRepository;
+    private CategoriasRepositorys categoriasRepository;
 
-    private aulasModel aulasModel;
+    private AulasModel aulasModel;
 
-    List<equipamentosModel> equipamentosDaAula = new ArrayList<>();
+    List<EquipamentosModel> equipamentosDaAula = new ArrayList<>();
 
-    public responseDTO criarAula(AulasDTO aulasDTO, aulasRepository repository){
-        responseDTO resposta = new responseDTO();
+    public ResponseDTO criarAula(AulasDTO aulasDTO, AulasRepository repository){
+        ResponseDTO resposta = new ResponseDTO();
         try{
             for (String nomeEquipamento : aulasDTO.getEquipamento()) {
-                equipamentosModel dadosEquipamento = equip.findByNome(nomeEquipamento).orElse(null);
+                EquipamentosModel dadosEquipamento = equip.findByNome(nomeEquipamento).orElse(null);
 
                 if (dadosEquipamento == null) {
                     resposta.setSucesso(false);
@@ -65,7 +65,7 @@ public class aulasServices {
                 return resposta;
             }
 
-            for(aulasModel aulas: repository.findByInstrutorModelId(instrutorAula.getId())){
+            for(AulasModel aulas: repository.findByInstrutorModelId(instrutorAula.getId())){
                 if(aulas.getDataAula().equals(aulasDTO.getData()) ){
                     LocalTime fimAulaInstrutor = aulas.getHorario().plusMinutes(aulas.getDuracao());
                     LocalTime fimNovaAula = aulasDTO.getHorario().plusMinutes(aulasDTO.getDuracao());

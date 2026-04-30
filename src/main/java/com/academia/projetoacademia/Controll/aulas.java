@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.DTO.AulasDTO;
-import com.academia.projetoacademia.DTO.responseDTO;
+import com.academia.projetoacademia.DTO.ResponseDTO;
 
-import com.academia.projetoacademia.repositorys.aulasRepository;
-import com.academia.projetoacademia.services.aulasServices;
+import com.academia.projetoacademia.repositorys.AulasRepository;
+import com.academia.projetoacademia.services.AulasServices;
 
 
 
 @RestController
 @RequestMapping("/aulas")
-public class aulas {
-    private final aulasServices aulasServices;
+public class Aulas {
+    private final AulasServices aulasServices;
 
-    private final instrutor instrutor;
+    private final Instrutor instrutor;
 
-    private final equipamentos equipamentos;
+    private final Equipamentos equipamentos;
 
-    private aulasRepository repository;
+    private AulasRepository repository;
 
-    private responseDTO response;
+    private ResponseDTO response;
 
-    aulas(equipamentos equipamentos, instrutor instrutor, aulasServices aulasServices) {
+    Aulas(Equipamentos equipamentos, Instrutor instrutor, AulasServices aulasServices) {
         this.equipamentos = equipamentos;
         this.instrutor = instrutor;
         this.aulasServices = aulasServices;

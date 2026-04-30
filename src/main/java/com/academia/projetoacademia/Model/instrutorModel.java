@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "id_usuario")
 @EqualsAndHashCode(callSuper = true)
-public class instrutorModel extends usuarioModel{
+public class InstrutorModel extends UsuarioModel{
     @Column
     private String cref;
 }

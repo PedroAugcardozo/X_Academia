@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.academia.projetoacademia.Model.inscricaoAulaId;
-import com.academia.projetoacademia.Model.inscricaoAulaModel;
+import com.academia.projetoacademia.Model.InscricaoAulaId;
+import com.academia.projetoacademia.Model.InscricaoAulaModel;
 
-public interface inscricaoAulaRepositorys extends JpaRepository<inscricaoAulaModel, inscricaoAulaId>{
-    List<inscricaoAulaModel> findByAulaId(Long idAula);
+public interface InscricaoAulaRepositorys extends JpaRepository<InscricaoAulaModel, InscricaoAulaId>{
+    List<InscricaoAulaModel> findByAulaId(Long idAula);
     
-    List<inscricaoAulaModel> findByUsuarioId(Long idUsuario);
+    List<InscricaoAulaModel> findByUsuarioId(Long idUsuario);
 }
