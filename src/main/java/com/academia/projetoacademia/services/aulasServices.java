@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.AulasModel;
-import com.academia.projetoacademia.Model.categoriasModel;
+import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.Model.EquipamentosModel;
-import com.academia.projetoacademia.Model.instrutorModel;
+import com.academia.projetoacademia.Model.InstrutorModel;
 import com.academia.projetoacademia.repositorys.AulasRepository;
 import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
 import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
@@ -28,7 +28,6 @@ public class AulasServices {
     private AulasModel aulasModel;
 
     List<EquipamentosModel> equipamentosDaAula = new ArrayList<>();
-
     public ResponseDTO criarAula(AulasDTO aulasDTO, AulasRepository repository){
         ResponseDTO resposta = new ResponseDTO();
         try{
@@ -51,14 +50,14 @@ public class AulasServices {
                 equipamentosDaAula.add(dadosEquipamento);
             }
 
-            instrutorModel instrutorAula = instrutorRepository.findByNome(aulasDTO.getInstrutor()).orElse(null);
+            InstrutorModel instrutorAula = instrutorRepository.findByNome(aulasDTO.getInstrutor()).orElse(null);
             if(instrutorAula == null){
                 resposta.setMensagem("instrutor nao encontrado");
                 resposta.setSucesso(false);
                 return resposta;
             }
 
-            categoriasModel categoriasModel = categoriasRepository.findByNome(aulasDTO.getCategoria()).orElse(null);
+            CategoriasModel categoriasModel = categoriasRepository.findByNome(aulasDTO.getCategoria()).orElse(null);
             if(categoriasModel == null){
                 resposta.setSucesso(false);
                 resposta.setMensagem("categoria nao encontrada");
@@ -84,7 +83,6 @@ public class AulasServices {
             aulasModel.setInstrutorModel(instrutorAula);
             aulasModel.setCategoriasModel(categoriasModel);
             aulasModel.setEquipamentosModels(equipamentosDaAula);
-
             
             repository.save(aulasModel);
             resposta.setMensagem("aula criada com sucesso");

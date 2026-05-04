@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.instrutorModel;
+import com.academia.projetoacademia.Model.InstrutorModel;
 import com.academia.projetoacademia.Model.PlanoModel;
 import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
@@ -64,7 +64,7 @@ public class Usuario {
                 return ResponseEntity.badRequest().body("usuario nao encontrado");
             }
             Long id = usuarioLogado.getId();
-            Optional<instrutorModel> instrutorOpt = instRepository.findById(id);
+            Optional<InstrutorModel> instrutorOpt = instRepository.findById(id);
             if (instrutorOpt.isPresent()) {
                 return ResponseEntity.badRequest().body("instrutor nao pode atualizar o proprio plano");
             }

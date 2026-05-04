@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.Model.EnderecoModel;
-import com.academia.projetoacademia.repositorys.enderecoRepository;
+import com.academia.projetoacademia.repositorys.EnderecoRepository;
 
 @RestController
 @RequestMapping("/endereco")
 public class Endereco {
     
-    private enderecoRepository repository;
+    private EnderecoRepository repository;
 
     @PostMapping("/criar")
     public ResponseEntity criarEndereco(@RequestBody EnderecoModel enderecoModel){

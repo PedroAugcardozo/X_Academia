@@ -42,7 +42,7 @@ public class AulasModel {
 
     @ManyToOne
     @JoinColumn(name = "id_instrutor")
-    private instrutorModel instrutorModel;
+    private InstrutorModel instrutorModel;
 
     @ManyToMany
     @JoinTable(
@@ -54,7 +54,7 @@ public class AulasModel {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private categoriasModel categoriasModel;
+    private CategoriasModel categoriasModel;
 
     public LocalTime getHorario(){return Horario;}
 }

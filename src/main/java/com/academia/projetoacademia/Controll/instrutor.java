@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.instrutorModel;
+import com.academia.projetoacademia.Model.InstrutorModel;
 import com.academia.projetoacademia.repositorys.InstrutorRepository;
 
 @RequestMapping("/instrutor")
@@ -18,7 +18,7 @@ public class Instrutor {
     private InstrutorRepository repository;
     
     @PostMapping("/criar")
-    public ResponseEntity criarInstrutor(@RequestBody instrutorModel instrutor){
+    public ResponseEntity criarInstrutor(@RequestBody InstrutorModel instrutor){
         return ResponseEntity.status(201).body(repository.save(instrutor));
     }
 

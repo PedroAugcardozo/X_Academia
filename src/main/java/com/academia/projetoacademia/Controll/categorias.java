@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.categoriasModel;
+import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
 
 @RestController
@@ -18,7 +18,7 @@ public class Categorias {
     private CategoriasRepositorys repositorys;
     
     @PostMapping("/criar")
-    public ResponseEntity criarCategoria(@RequestBody categoriasModel categoriasModel){
+    public ResponseEntity criarCategoria(@RequestBody CategoriasModel categoriasModel){
         return ResponseEntity.status(201).body(repositorys.save(categoriasModel));
     }
 
