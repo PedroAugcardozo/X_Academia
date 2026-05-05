@@ -3,6 +3,7 @@ package com.academia.projetoacademia.Controll;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +26,13 @@ import com.academia.projetoacademia.repositorys.UsuarioRepository;
 @RequestMapping("/manutencao")
 public class Manutencao {
 
+    @Autowired
     private ManutencaoRepository repository;
 
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
     private EquipamentosRepositorys equipamentosRepositorys;
     
     @PostMapping("/criar")

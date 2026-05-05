@@ -2,6 +2,7 @@ package com.academia.projetoacademia.Controll;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.academia.projetoacademia.repositorys.PlanosRepository;
 @RequestMapping("/planos")
 public class Plano {
 
+    @Autowired
     private PlanosRepository repository;
     
     @PostMapping("/criar")

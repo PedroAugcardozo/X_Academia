@@ -1,5 +1,6 @@
 package com.academia.projetoacademia.Controll;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.academia.projetoacademia.repositorys.EnderecoRepository;
 @RequestMapping("/endereco")
 public class Endereco {
     
+    @Autowired
     private EnderecoRepository repository;
 
     @PostMapping("/criar")

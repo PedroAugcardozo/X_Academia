@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.academia.projetoacademia.DTO.AulasDTO;
@@ -19,10 +20,13 @@ import com.academia.projetoacademia.repositorys.InstrutorRepository;
 
 @Service
 public class AulasServices {
+    @Autowired
     private EquipamentosRepositorys equip;
 
+    @Autowired
     private InstrutorRepository instrutorRepository;
 
+    @Autowired
     private CategoriasRepositorys categoriasRepository;
 
     private AulasModel aulasModel;

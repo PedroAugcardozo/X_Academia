@@ -43,6 +43,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/planos/buscarTodos").permitAll()
+                .requestMatchers("/usuarios/criar").permitAll()
+                .requestMatchers("/endereco/criar").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/aulas/**").hasAnyRole("ADMIN", "INSTRUTOR", "ALUNO")
                 .requestMatchers("/planos/criar").hasRole("ADMIN")
@@ -52,11 +55,11 @@ public class SecurityConfig {
                 .requestMatchers("/instrutor/**").hasAnyRole("ADMIN", "INSTRUTOR")
                 .requestMatchers(HttpMethod.GET,"/planos/buscarTodos").permitAll()
                 .requestMatchers(HttpMethod.POST,"/usuarios/criar").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
