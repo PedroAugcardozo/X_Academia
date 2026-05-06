@@ -44,7 +44,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/planos/buscarTodos").permitAll()
-                .requestMatchers("/usuarios/criar").permitAll()
+                .requestMatchers("/usuarios/criar/aluno").permitAll()
                 .requestMatchers("/endereco/criar").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/aulas/**").hasAnyRole("ADMIN", "INSTRUTOR", "ALUNO")

@@ -41,9 +41,9 @@ public class Usuario {
         try{
             ResponseDTO resposta = alunosService.criarAluno(usuario);
             if(!resposta.getSucesso()){
-                return ResponseEntity.badRequest().body(resposta.getMensagem());
+                return ResponseEntity.badRequest().body(resposta);
             }
-            return ResponseEntity.ok().body(resposta.getMensagem());
+            return ResponseEntity.ok().body(resposta);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("erro ao criar um aluno");
         }
@@ -62,12 +62,11 @@ public class Usuario {
     @PostMapping("/atualizar-plano")
     public ResponseEntity atualizarPlano(@AuthenticationPrincipal usuarioAutenticado usuarioLogado,@RequestParam Long idPlano){
         try{
-            AlunosService alunosService = new AlunosService();
             ResponseDTO resposta = alunosService.atualizarPlano(usuarioLogado, idPlano);
             if(!resposta.getSucesso()){
-                return ResponseEntity.badRequest().body(resposta.getMensagem());
+                return ResponseEntity.badRequest().body(resposta);
             }
-            return ResponseEntity.ok().body(resposta.getMensagem());
+            return ResponseEntity.ok().body(resposta);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("erro ao atualizar plano");
         }

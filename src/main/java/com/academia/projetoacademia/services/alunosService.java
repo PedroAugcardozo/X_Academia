@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.academia.projetoacademia.DTO.ResponseDTO;
@@ -20,6 +20,8 @@ import com.academia.projetoacademia.repositorys.UsuarioRepository;
 @Service
 public class AlunosService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private ResponseDTO resposta = new ResponseDTO();
 
     @Autowired
@@ -32,6 +34,10 @@ public class AlunosService {
     private PlanosRepository planosRepository;
 
     private UsuarioModel usuarioModel;
+
+    AlunosService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public ResponseDTO atualizarPlano(usuarioAutenticado usuarioLogado, Long planoId){
         try{
@@ -84,13 +90,14 @@ public class AlunosService {
             usuarioModel.setNome(novoUsuario.getNome());
             usuarioModel.setPlano(plano);
             usuarioModel.setSexo(novoUsuario.getSexo());
-            usuarioModel.setSenha(novoUsuario.getSenha());
+            usuarioModel.setSenha(passwordEncoder.encode(novoUsuario.getSenha()));
             usuarioModel.setData_nasc(novoUsuario.getDataDeNascimento());
-            usuarioModel.setNivel_acesso("ALUNO");
+            usuarioModel.setNivel_acesso("aluno");
             usuarioModel.setPlano_expira_em(data.plusDays(30));
 
-            repository.save(usuarioModel);
-            
+            UsuarioModel usuarioCriado = repository.save(usuarioModel);
+
+            resposta.setId(usuarioCriado.getId());
             resposta.setMensagem("Aluno criado com sucesso");
             resposta.setSucesso(true);
 
