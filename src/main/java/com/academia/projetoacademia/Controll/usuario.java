@@ -1,5 +1,6 @@
 package com.academia.projetoacademia.Controll;
 
+import com.academia.projetoacademia.services.AlunosService;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -7,9 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.academia.projetoacademia.Model.InstrutorModel;
-import com.academia.projetoacademia.Model.PlanoModel;
-import com.academia.projetoacademia.Model.UsuarioModel;
+import com.academia.projetoacademia.DTO.ResponseDTO;
+import com.academia.projetoacademia.DTO.UsuariosDto;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.InstrutorRepository;
 import com.academia.projetoacademia.repositorys.PlanosRepository;
@@ -27,22 +27,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/usuarios")
 public class Usuario {
 
+    private final AlunosService alunosService;
+
     private final UsuarioRepository repository;
 
-    private final InstrutorRepository instRepository;
-
-    private final PlanosRepository planosRepository;
-
-    public Usuario(UsuarioRepository repository, InstrutorRepository instrutorRepository, PlanosRepository planosRepository) {
+    public Usuario(UsuarioRepository repository, AlunosService alunosService) {
         this.repository = repository;
-        this.instRepository = instrutorRepository;
-        this.planosRepository = planosRepository;
+        this.alunosService = alunosService;
     }
-    
 
-    @PostMapping("/criar")
-    public ResponseEntity CriarUsuario(@RequestBody UsuarioModel usuario){
-        return ResponseEntity.status(201).body(repository.save(usuario));
+    @PostMapping("/criar/aluno")
+    public ResponseEntity CriarUsuario(@RequestBody UsuariosDto usuario){
+        try{
+            ResponseDTO resposta = alunosService.criarAluno(usuario);
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta.getMensagem());
+            }
+            return ResponseEntity.ok().body(resposta.getMensagem());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("erro ao criar um aluno");
+        }
     }
 
     @GetMapping("/buscartodos")
@@ -56,28 +60,15 @@ public class Usuario {
     }
 
     @PostMapping("/atualizar-plano")
-    public ResponseEntity atualizarPlano(@AuthenticationPrincipal usuarioAutenticado usuarioLogado,@RequestParam Long idPlano) {
-        try {
-            Optional<UsuarioModel> usuarioOpt = repository.findById(usuarioLogado.getId());
-            if (usuarioOpt.isEmpty()) {
-                return ResponseEntity.badRequest().body("usuario nao encontrado");
+    public ResponseEntity atualizarPlano(@AuthenticationPrincipal usuarioAutenticado usuarioLogado,@RequestParam Long idPlano){
+        try{
+            AlunosService alunosService = new AlunosService();
+            ResponseDTO resposta = alunosService.atualizarPlano(usuarioLogado, idPlano);
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta.getMensagem());
             }
-            Long id = usuarioLogado.getId();
-            Optional<InstrutorModel> instrutorOpt = instRepository.findById(id);
-            if (instrutorOpt.isPresent()) {
-                return ResponseEntity.badRequest().body("instrutor nao pode atualizar o proprio plano");
-            }
-            Optional<PlanoModel> planoOpt = planosRepository.findById(idPlano);
-            if (planoOpt.isEmpty()) {
-                return ResponseEntity.badRequest().body("plano nao encontrado");
-            }
-            UsuarioModel usuario = usuarioOpt.get();
-            PlanoModel plano = planoOpt.get();
-            usuario.setPlano(plano);
-            usuario.setPlano_expira_em(LocalDateTime.now().plusDays(30));
-            repository.save(usuario);
-            return ResponseEntity.ok("plano atualizado com sucesso");
-        } catch (Exception e) {
+            return ResponseEntity.ok().body(resposta.getMensagem());
+        }catch (Exception e){
             return ResponseEntity.badRequest().body("erro ao atualizar plano");
         }
     }
