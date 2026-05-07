@@ -46,9 +46,9 @@ public class AulasModel {
 
     @ManyToMany
     @JoinTable(
-        name = "aula_equipamentos",
+        name = "aula_equipamento",
         joinColumns = @JoinColumn(name = "id_aula"),
-        inverseJoinColumns = @JoinColumn(name = "id_equipamentos")
+        inverseJoinColumns = @JoinColumn(name = "id_equipamento")
     )
     private List<EquipamentosModel> equipamentosModels;
 

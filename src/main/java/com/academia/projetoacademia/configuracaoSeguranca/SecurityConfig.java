@@ -47,15 +47,17 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/criar/aluno").permitAll()
                 .requestMatchers("/endereco/criar").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/aulas/**").hasAnyRole("ADMIN", "INSTRUTOR", "ALUNO")
+                .requestMatchers(HttpMethod.GET, "/aulas/criar").hasAnyRole("ADMIN", "INSTRUTOR")
                 .requestMatchers("/planos/criar").hasRole("ADMIN")
                 .requestMatchers("/categorias/**").hasRole("ADMIN")
-                .requestMatchers("/equipamentos/**").hasRole("ADMIN")
-                .requestMatchers("/manutencao/**").hasRole("ADMIN")
-                .requestMatchers("/instrutor/**").hasAnyRole("ADMIN", "INSTRUTOR")
+                .requestMatchers("/equipamentos/criar").hasRole("ADMIN")
+                .requestMatchers("/manutencao/criar").hasRole("ADMIN")
+                .requestMatchers("/instrutor/criar").hasRole("ADMIN")
+                .requestMatchers("/usuarios/buscarTodos").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/planos/buscarTodos").permitAll()
-                .requestMatchers(HttpMethod.POST,"/usuarios/criar").permitAll()
+
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())

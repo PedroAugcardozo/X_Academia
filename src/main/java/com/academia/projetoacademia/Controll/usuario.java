@@ -1,8 +1,6 @@
 package com.academia.projetoacademia.Controll;
 
 import com.academia.projetoacademia.services.AlunosService;
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.DTO.UsuariosDto;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
-import com.academia.projetoacademia.repositorys.InstrutorRepository;
-import com.academia.projetoacademia.repositorys.PlanosRepository;
 import com.academia.projetoacademia.repositorys.UsuarioRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +45,7 @@ public class Usuario {
         }
     }
 
-    @GetMapping("/buscartodos")
+    @GetMapping("/buscarTodos")
     public ResponseEntity BuscarUsuarios(){
         return ResponseEntity.ok(repository.findAll());
     }
