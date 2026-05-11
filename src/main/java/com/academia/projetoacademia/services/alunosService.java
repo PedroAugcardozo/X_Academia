@@ -76,7 +76,7 @@ public class AlunosService {
         }
     }
 
-    public ResponseDTO criarAluno(UsuariosDto novoUsuario){
+    public ResponseDTO criarAluno(UsuariosDto novoUsuario, String Hole){
         try{
 
             PlanoModel plano = planosRepository.findById(novoUsuario.getPlanoId()).orElse(null);
@@ -92,7 +92,7 @@ public class AlunosService {
             usuarioModel.setSexo(novoUsuario.getSexo());
             usuarioModel.setSenha(passwordEncoder.encode(novoUsuario.getSenha()));
             usuarioModel.setData_nasc(novoUsuario.getDataDeNascimento());
-            usuarioModel.setNivel_acesso("aluno");
+            usuarioModel.setNivel_acesso(Hole);
             usuarioModel.setPlano_expira_em(data.plusDays(30));
 
             UsuarioModel usuarioCriado = repository.save(usuarioModel);

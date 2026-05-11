@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.academia.projetoacademia.DTO.InstrutorDto;
+import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.InstrutorModel;
 import com.academia.projetoacademia.repositorys.InstrutorRepository;
+import com.academia.projetoacademia.services.InstrutorService;
 
 @RequestMapping("/instrutor")
 @RestController
@@ -18,10 +21,20 @@ public class Instrutor {
 
     @Autowired
     private InstrutorRepository repository;
+
+    InstrutorService instrutorService;
     
     @PostMapping("/criar")
-    public ResponseEntity criarInstrutor(@RequestBody InstrutorModel instrutor){
-        return ResponseEntity.status(201).body(repository.save(instrutor));
+    public ResponseEntity criarInstrutor(@RequestBody InstrutorDto instrutor){
+        try{
+            ResponseDTO resposta = instrutorService.criarInstrutor(instrutor, repository);
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta.getMensagem());
+            }
+            return ResponseEntity.ok(resposta);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
     @GetMapping("/buscarUm")

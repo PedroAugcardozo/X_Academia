@@ -1,7 +1,5 @@
 package com.academia.projetoacademia.Controll;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,19 +21,13 @@ import com.academia.projetoacademia.services.AulasServices;
 @RequestMapping("/aulas")
 public class Aulas {
     private final AulasServices aulasServices;
-
-    private final Instrutor instrutor;
-
-    private final Equipamentos equipamentos;
-
+    
     @Autowired
     private AulasRepository repository;
 
     private ResponseDTO response;
 
     Aulas(Equipamentos equipamentos, Instrutor instrutor, AulasServices aulasServices) {
-        this.equipamentos = equipamentos;
-        this.instrutor = instrutor;
         this.aulasServices = aulasServices;
     }
     @PostMapping("/criar")

@@ -55,7 +55,7 @@ public class UsuarioModel {
     private LocalDateTime plano_expira_em;
 
     @ManyToOne
-    @JoinColumn(name = "id_plano")
+    @JoinColumn(name = "id_plano", nullable = true)
     private PlanoModel plano;
 
     public Long getId(){

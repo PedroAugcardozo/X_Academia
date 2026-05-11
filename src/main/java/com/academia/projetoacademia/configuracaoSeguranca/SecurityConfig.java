@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .requestMatchers("/manutencao/criar").hasRole("ADMIN")
                 .requestMatchers("/instrutor/criar").hasRole("ADMIN")
                 .requestMatchers("/usuarios/buscarTodos").hasRole("ADMIN")
+                .requestMatchers("/usuarios/criar/admin").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/planos/buscarTodos").permitAll()
 
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

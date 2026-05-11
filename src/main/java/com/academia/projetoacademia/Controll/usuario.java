@@ -33,9 +33,22 @@ public class Usuario {
     }
 
     @PostMapping("/criar/aluno")
-    public ResponseEntity CriarUsuario(@RequestBody UsuariosDto usuario){
+    public ResponseEntity CriarAluno(@RequestBody UsuariosDto usuario){
         try{
-            ResponseDTO resposta = alunosService.criarAluno(usuario);
+            ResponseDTO resposta = alunosService.criarAluno(usuario, "aluno");
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta);
+            }
+            return ResponseEntity.ok().body(resposta);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("erro ao criar um aluno");
+        }
+    }
+
+    @PostMapping("/criar/admin")
+    public ResponseEntity CriarAdmin(@RequestBody UsuariosDto usuario){
+        try{
+            ResponseDTO resposta = alunosService.criarAluno(usuario, "admin");
             if(!resposta.getSucesso()){
                 return ResponseEntity.badRequest().body(resposta);
             }
