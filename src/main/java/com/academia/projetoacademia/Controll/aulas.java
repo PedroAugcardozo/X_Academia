@@ -1,5 +1,6 @@
 package com.academia.projetoacademia.Controll;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.academia.projetoacademia.DTO.AlterarAulaDto;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.ResponseDTO;
@@ -103,6 +103,21 @@ public class Aulas {
                 return ResponseEntity.badRequest().body(resposta.getMensagem());
             }
             return ResponseEntity.ok().body(resposta);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @PostMapping("/concluir")
+    public ResponseEntity concluirAula(@RequestParam Long aulaId){
+        try{
+            AulasModel aula = repository.findById(aulaId).orElse(null);
+            LocalDate DataDeHoje = LocalDate.now();
+            if(aula.getDataAula().isBefore(DataDeHoje) || aula.getDataAula().equals(DataDeHoje)){
+                repository.deleteById(aulaId);
+                return ResponseEntity.ok("aula concluida com sucesso");
+            }
+            return ResponseEntity.badRequest().body("apenas as aulas que já passaram podem ser concluidas");
         }catch(Exception e){
             return ResponseEntity.badRequest().body(e);
         }
