@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.academia.projetoacademia.DTO.AlterarAulaDto;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.AulasModel;
 import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.Model.EquipamentosModel;
 import com.academia.projetoacademia.Model.InstrutorModel;
+import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.AulasRepository;
 import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
 import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
@@ -29,9 +31,13 @@ public class AulasServices {
     @Autowired
     private CategoriasRepositorys categoriasRepository;
 
+    @Autowired
+    private AulasRepository aulasRepository;
+
     private AulasModel aulasModel;
 
     List<EquipamentosModel> equipamentosDaAula = new ArrayList<>();
+
     public ResponseDTO criarAula(AulasDTO aulasDTO, AulasRepository repository){
         ResponseDTO resposta = new ResponseDTO();
         try{
@@ -97,6 +103,47 @@ public class AulasServices {
             resposta.setSucesso(false);
         }
         return resposta;
+    }
+
+    public ResponseDTO alterarHorario(AlterarAulaDto novaAula, usuarioAutenticado usuario){
+        ResponseDTO resposta = new ResponseDTO();
+        try{
+
+            AulasModel aula = aulasRepository.findById(novaAula.getIdAula()).orElse(null);
+            if(aula == null){
+                resposta.setMensagem("aula nao encontrada");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            InstrutorModel instrutorDaAula = instrutorRepository.findById(usuario.getId()).orElse(null);
+            if(instrutorDaAula == null){
+                resposta.setMensagem("instrutor nao encontrado");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            for(AulasModel aulas: aulasRepository.findByInstrutorModelId(instrutorDaAula.getId())){
+                if(aulas.getDataAula().equals(novaAula.getData()) ){
+                    LocalTime fimAulaInstrutor = aulas.getHorario().plusMinutes(aulas.getDuracao());
+                    LocalTime fimNovaAula = novaAula.getHoraInicio().plusMinutes(novaAula.getDuracao());
+                    if(novaAula.getHoraInicio().isBefore(fimAulaInstrutor) && fimNovaAula.isAfter(aulas.getHorario())){
+                        resposta.setMensagem("instrutor ja tem uma aula nesse horario");
+                        resposta.setSucesso(false);
+                        return resposta;
+                    }
+                }
+            }
+            aula.setDataAula(novaAula.getData());
+            aula.setDuracao(novaAula.getDuracao());
+            aula.setHorario(novaAula.getHoraInicio());
+
+            aulasRepository.save(aula);
+            
+            return resposta;
+        }catch(Exception e){
+            return resposta;
+        }
     }
 
 }

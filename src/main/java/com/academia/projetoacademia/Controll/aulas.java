@@ -9,11 +9,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.academia.projetoacademia.DTO.AlterarAulaDto;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.AulasModel;
@@ -92,4 +94,17 @@ public class Aulas {
         }
     }
     
+    @PutMapping("/alterarHorario")
+    public ResponseEntity alterarHorarioAulas(@RequestBody AlterarAulaDto novaAula, @AuthenticationPrincipal usuarioAutenticado usuario){
+        try{
+            AulasServices aulasServices = new AulasServices();
+            ResponseDTO resposta = aulasServices.alterarHorario(novaAula, usuario);
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta.getMensagem());
+            }
+            return ResponseEntity.ok().body(resposta);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
 }
