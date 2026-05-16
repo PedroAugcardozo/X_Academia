@@ -2,6 +2,7 @@ package com.academia.projetoacademia.Controll;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,21 @@ public class Instrutor {
     @GetMapping("/buscarTodos")
     public ResponseEntity buscarTodos(){
         return ResponseEntity.status(200).body(repository.findAll());
+    }
+
+    @DeleteMapping("/deletar")
+    public ResponseEntity deletar(@RequestParam String nome){
+        try{
+            InstrutorModel instrutor = repository.findByNome(nome).orElse(null);
+            if(instrutor == null){
+                return ResponseEntity.badRequest().body("Instrutor nao encontrado");
+            }
+
+            repository.delete(instrutor);
+            return ResponseEntity.ok("instrutor deletado com sucesso");
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 
 }

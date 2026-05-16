@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.DTO.UsuariosDto;
+import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.UsuarioRepository;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,6 +80,20 @@ public class Usuario {
             return ResponseEntity.ok().body(resposta);
         }catch (Exception e){
             return ResponseEntity.badRequest().body("erro ao atualizar plano");
+        }
+    }
+
+    @DeleteMapping("/deletar")
+    public ResponseEntity deletar(@RequestParam String nome){
+        try{
+            UsuarioModel usuario = repository.findByNome(nome).orElse(null);
+            if(usuario == null){
+                return ResponseEntity.badRequest().body("usuario nao encontrado");
+            }
+            repository.delete(usuario);
+            return ResponseEntity.ok("usuario deletado com sucesso");
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }
