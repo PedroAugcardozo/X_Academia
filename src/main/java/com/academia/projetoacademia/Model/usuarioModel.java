@@ -57,24 +57,4 @@ public class UsuarioModel {
     @ManyToOne
     @JoinColumn(name = "id_plano", nullable = true)
     private PlanoModel plano;
-
-    public Long getId(){
-        return this.id;
-    }
-
-    public String getNome(){
-        return this.nome;
-    }
-
-    public String getEmail(){
-        return this.email;
-    }
-
-    public String getNivelAcesso(){
-        return this.nivel_acesso;
-    }
-
-    public String getSenha(){
-        return this.senha;
-    }
 }

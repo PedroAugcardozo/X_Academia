@@ -27,13 +27,13 @@ public class usuarioAutenticado implements UserDetails{
     }
 
     public String getNivelAcesso() {
-        return usuario.getNivelAcesso();
+        return usuario.getNivel_acesso();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(
-            new SimpleGrantedAuthority("ROLE_" + usuario.getNivelAcesso().toUpperCase())
+            new SimpleGrantedAuthority("ROLE_" + usuario.getNivel_acesso().toUpperCase())
         );
     }
 

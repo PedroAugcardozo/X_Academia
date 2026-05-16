@@ -2,6 +2,8 @@ package com.academia.projetoacademia.Controll;
 
 import com.academia.projetoacademia.services.AlunosService;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,8 +92,40 @@ public class Usuario {
             if(usuario == null){
                 return ResponseEntity.badRequest().body("usuario nao encontrado");
             }
+            if("admin".equalsIgnoreCase(usuario.getNivel_acesso())){
+                return ResponseEntity.badRequest().body("nao e possivel deletar um usuario admin");
+            }
             repository.delete(usuario);
             return ResponseEntity.ok("usuario deletado com sucesso");
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @DeleteMapping("/deletar/admin")
+    public ResponseEntity deletarAdmin(@RequestParam String nome){
+        try{
+            List<UsuarioModel> usuariosLista = repository.findAll();
+            UsuarioModel usuarioQueSeraDeletado = repository.findByNome(nome).orElse(null);
+            int quantidadeAdmin = 0;
+
+            if(usuarioQueSeraDeletado == null){
+                return ResponseEntity.badRequest().body("admin nao encontrado");
+            }
+            if(!"admin".equalsIgnoreCase(usuarioQueSeraDeletado.getNivel_acesso())){
+                return ResponseEntity.badRequest().body("usuario nao e um admin");
+            }
+            for(UsuarioModel usuario: usuariosLista){
+                if("admin".equalsIgnoreCase(usuario.getNivel_acesso())){
+                    quantidadeAdmin++;
+                }
+            }
+            if (quantidadeAdmin < 2) {
+                return ResponseEntity.badRequest().body("Tem que existir pelo menos um admin no sistema");
+            }
+
+            repository.delete(usuarioQueSeraDeletado);
+            return ResponseEntity.ok("admin deletado com sucesso");
         }catch(Exception e){
             return ResponseEntity.badRequest().body(e);
         }
