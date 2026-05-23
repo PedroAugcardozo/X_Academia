@@ -86,9 +86,9 @@ public class Usuario {
     }
 
     @DeleteMapping("/deletar")
-    public ResponseEntity deletar(@RequestParam String nome){
+    public ResponseEntity deletar(@RequestParam String email){
         try{
-            UsuarioModel usuario = repository.findByNome(nome).orElse(null);
+            UsuarioModel usuario = repository.findByEmail(email).orElse(null);
             if(usuario == null){
                 return ResponseEntity.badRequest().body("usuario nao encontrado");
             }
@@ -103,10 +103,10 @@ public class Usuario {
     }
 
     @DeleteMapping("/deletar/admin")
-    public ResponseEntity deletarAdmin(@RequestParam String nome){
+    public ResponseEntity deletarAdmin(@RequestParam String email){
         try{
             List<UsuarioModel> usuariosLista = repository.findAll();
-            UsuarioModel usuarioQueSeraDeletado = repository.findByNome(nome).orElse(null);
+            UsuarioModel usuarioQueSeraDeletado = repository.findByEmail(email).orElse(null);
             int quantidadeAdmin = 0;
 
             if(usuarioQueSeraDeletado == null){

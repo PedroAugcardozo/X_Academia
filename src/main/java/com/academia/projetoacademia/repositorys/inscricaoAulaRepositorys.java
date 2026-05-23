@@ -1,6 +1,7 @@
 package com.academia.projetoacademia.repositorys;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,8 @@ public interface InscricaoAulaRepositorys extends JpaRepository<InscricaoAulaMod
     List<InscricaoAulaModel> findByAulaId(Long idAula);
     
     List<InscricaoAulaModel> findByUsuarioId(Long idUsuario);
+
+    boolean existsByAulaIdAndUsuarioId(Long idAula, Long idUsuario);
+
+    Optional<InscricaoAulaModel> findByAulaIdAndUsuarioId(Long idAula, Long idUsuario);
 }

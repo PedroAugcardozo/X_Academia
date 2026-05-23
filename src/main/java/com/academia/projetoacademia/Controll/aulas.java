@@ -122,4 +122,23 @@ public class Aulas {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
+    @PostMapping("/presenca")
+    public ResponseEntity cadastrarPresenca(@AuthenticationPrincipal usuarioAutenticado usuario, @RequestParam Long idAula){
+        try{
+            AulasServices service = new AulasServices();
+            ResponseDTO respostaService = service.cadastrarPresenca(usuario, usuarioRepository, idAula);
+            if(!respostaService.getSucesso()){
+                return ResponseEntity.badRequest().body(respostaService.getMensagem());
+            }
+            return ResponseEntity.ok().body("deu certo a requisição");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @PostMapping("/cadastrarEmAula")
+    public ResponseEntity cadastrarEmAula(@AuthenticationPrincipal usuarioAutenticado usuario, @RequestParam Long idAula){
+        
+    }
 }

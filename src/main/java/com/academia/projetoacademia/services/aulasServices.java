@@ -13,12 +13,16 @@ import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.AulasModel;
 import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.Model.EquipamentosModel;
+import com.academia.projetoacademia.Model.InscricaoAulaModel;
 import com.academia.projetoacademia.Model.InstrutorModel;
+import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.AulasRepository;
 import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
 import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
+import com.academia.projetoacademia.repositorys.InscricaoAulaRepositorys;
 import com.academia.projetoacademia.repositorys.InstrutorRepository;
+import com.academia.projetoacademia.repositorys.UsuarioRepository;
 
 @Service
 public class AulasServices {
@@ -33,6 +37,9 @@ public class AulasServices {
 
     @Autowired
     private AulasRepository aulasRepository;
+
+    @Autowired
+    private InscricaoAulaRepositorys inscricaoAulaRepositorys;
 
     private AulasModel aulasModel;
 
@@ -146,4 +153,47 @@ public class AulasServices {
         }
     }
 
+    public ResponseDTO cadastrarPresenca(usuarioAutenticado usuario, UsuarioRepository repository, Long idAula){
+        ResponseDTO resposta = new ResponseDTO();
+        try{   
+            UsuarioModel usuarioOpt = repository.findById(usuario.getId()).orElse(null);
+            if(usuarioOpt == null){
+                resposta.setMensagem("usuario nao encontrado");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            AulasModel aula = aulasRepository.findById(idAula).orElse(null);
+            if(aula == null){
+                resposta.setMensagem("aula nao encontrada");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            if(!inscricaoAulaRepositorys.existsByAulaIdAndUsuarioId(idAula, usuario.getId())){
+                resposta.setMensagem("aluno nao cadastrado na aula");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            InscricaoAulaModel inscricaoAulaModel = inscricaoAulaRepositorys.findByAulaIdAndUsuarioId(idAula, usuario.getId()).orElse(null);
+
+            if(inscricaoAulaModel == null){
+                resposta.setMensagem("erro ao cadastrar presenca");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+            inscricaoAulaModel.setPresenca(true);
+            inscricaoAulaRepositorys.save(inscricaoAulaModel);
+
+            resposta.setMensagem("presenca cadastrada com sucesso");
+            resposta.setSucesso(true);
+            resposta.setId(usuario.getId());
+            return resposta;
+        }catch (Exception e){
+            resposta.setMensagem("Erro na requisição" + e);
+            resposta.setSucesso(false);
+            return resposta;
+        }
+    }
 }
