@@ -131,7 +131,7 @@ public class Aulas {
             if(!respostaService.getSucesso()){
                 return ResponseEntity.badRequest().body(respostaService.getMensagem());
             }
-            return ResponseEntity.ok().body("deu certo a requisição");
+            return ResponseEntity.ok().body(respostaService.getMensagem());
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e);
         }
@@ -139,6 +139,15 @@ public class Aulas {
 
     @PostMapping("/cadastrarEmAula")
     public ResponseEntity cadastrarEmAula(@AuthenticationPrincipal usuarioAutenticado usuario, @RequestParam Long idAula){
-        
+        try{
+            AulasServices aulasServices = new AulasServices();
+            ResponseDTO resposta = aulasServices.CadastrarUsuarioEmAula(usuario, usuarioRepository, idAula);
+            if(!resposta.getSucesso()){
+                return ResponseEntity.badRequest().body(resposta.getMensagem());
+            }
+            return ResponseEntity.ok(resposta.getMensagem());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e);
+        }
     }
 }

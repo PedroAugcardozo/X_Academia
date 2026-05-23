@@ -1,5 +1,7 @@
 package com.academia.projetoacademia.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.Model.EquipamentosModel;
 import com.academia.projetoacademia.Model.InscricaoAulaModel;
 import com.academia.projetoacademia.Model.InstrutorModel;
+import com.academia.projetoacademia.Model.PlanoModel;
 import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.AulasRepository;
@@ -22,6 +25,7 @@ import com.academia.projetoacademia.repositorys.CategoriasRepositorys;
 import com.academia.projetoacademia.repositorys.EquipamentosRepositorys;
 import com.academia.projetoacademia.repositorys.InscricaoAulaRepositorys;
 import com.academia.projetoacademia.repositorys.InstrutorRepository;
+import com.academia.projetoacademia.repositorys.PlanosRepository;
 import com.academia.projetoacademia.repositorys.UsuarioRepository;
 
 @Service
@@ -40,6 +44,9 @@ public class AulasServices {
 
     @Autowired
     private InscricaoAulaRepositorys inscricaoAulaRepositorys;
+
+    @Autowired
+    private PlanosRepository planosRepository;
 
     private AulasModel aulasModel;
 
@@ -178,17 +185,59 @@ public class AulasServices {
 
             InscricaoAulaModel inscricaoAulaModel = inscricaoAulaRepositorys.findByAulaIdAndUsuarioId(idAula, usuario.getId()).orElse(null);
 
-            if(inscricaoAulaModel == null){
-                resposta.setMensagem("erro ao cadastrar presenca");
-                resposta.setSucesso(false);
-                return resposta;
-            }
             inscricaoAulaModel.setPresenca(true);
             inscricaoAulaRepositorys.save(inscricaoAulaModel);
 
             resposta.setMensagem("presenca cadastrada com sucesso");
             resposta.setSucesso(true);
             resposta.setId(usuario.getId());
+            return resposta;
+        }catch (Exception e){
+            resposta.setMensagem("Erro na requisição" + e);
+            resposta.setSucesso(false);
+            return resposta;
+        }
+    }
+
+    public ResponseDTO CadastrarUsuarioEmAula(usuarioAutenticado usuario, UsuarioRepository repository, Long idAula){
+        ResponseDTO resposta = new ResponseDTO();
+        try{
+            UsuarioModel usuarioOpt = repository.findById(usuario.getId()).orElse(null);
+            if(usuarioOpt == null){
+                resposta.setMensagem("usuario nao encontrado");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            AulasModel aula = aulasRepository.findById(idAula).orElse(null);
+            if(aula == null){
+                resposta.setMensagem("aula nao encontrada");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            if(inscricaoAulaRepositorys.existsByAulaIdAndUsuarioId(idAula, usuario.getId())){
+                resposta.setMensagem("aluno ja esta cadastrado na aula");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            LocalDateTime dataDeHoje = LocalDateTime.now();
+            if(dataDeHoje.isAfter(usuarioOpt.getPlano_expira_em())){
+                resposta.setMensagem("plano expirado");
+                resposta.setSucesso(false);
+                return resposta;
+            }
+
+            InscricaoAulaModel inscricaoAula = new InscricaoAulaModel();
+            inscricaoAula.setAula(aula);
+            inscricaoAula.setUsuario(usuarioOpt);
+            inscricaoAula.setPresenca(false);
+
+            inscricaoAulaRepositorys.save(inscricaoAula);
+
+            resposta.setMensagem("Aluno cadastrado na aula com sucesso");
+            resposta.setSucesso(true);
             return resposta;
         }catch (Exception e){
             resposta.setMensagem("Erro na requisição" + e);
