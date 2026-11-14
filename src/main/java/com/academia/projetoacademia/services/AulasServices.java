@@ -1,6 +1,5 @@
 package com.academia.projetoacademia.services;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import com.academia.projetoacademia.Model.CategoriasModel;
 import com.academia.projetoacademia.Model.EquipamentosModel;
 import com.academia.projetoacademia.Model.InscricaoAulaModel;
 import com.academia.projetoacademia.Model.InstrutorModel;
-import com.academia.projetoacademia.Model.PlanoModel;
 import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.AulasRepository;

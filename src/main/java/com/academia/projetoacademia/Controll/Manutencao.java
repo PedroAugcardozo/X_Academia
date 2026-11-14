@@ -1,7 +1,6 @@
 package com.academia.projetoacademia.Controll;
 
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.academia.projetoacademia.Model.InstrutorModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +20,6 @@ import com.academia.projetoacademia.DTO.AlterarAulaDto;
 import com.academia.projetoacademia.DTO.AulasDTO;
 import com.academia.projetoacademia.DTO.ResponseDTO;
 import com.academia.projetoacademia.Model.AulasModel;
-import com.academia.projetoacademia.Model.InstrutorModel;
 import com.academia.projetoacademia.Model.UsuarioModel;
 import com.academia.projetoacademia.configuracaoSeguranca.usuarioAutenticado;
 import com.academia.projetoacademia.repositorys.AulasRepository;

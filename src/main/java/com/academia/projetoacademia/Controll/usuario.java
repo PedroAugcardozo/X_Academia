@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController 
 @RequestMapping("/usuarios")
-public class Usuario {
+public class usuario {
 
     private final AlunosService alunosService;
 
     private final UsuarioRepository repository;
 
-    public Usuario(UsuarioRepository repository, AlunosService alunosService) {
+    public usuario(UsuarioRepository repository, AlunosService alunosService) {
         this.repository = repository;
         this.alunosService = alunosService;
     }
