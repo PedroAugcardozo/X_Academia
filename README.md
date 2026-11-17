@@ -66,8 +66,8 @@ O projeto foi criado para praticar **modelagem de dados, SQL e desenvolvimento d
 |---|---|
 | Banco de dados | PostgreSQL |
 | Extensões | `pgcrypto` (hash de senhas de teste) |
-| Back-end | _preencher_ |
-| Front-end | _preencher_ |
+| Back-end | JAVA e SPRING BOOT |
+| Front-end | REACT |
 
 ---
 
